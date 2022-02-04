@@ -17,13 +17,14 @@ getNmonthAgo :: Int -> IO Day
 getNmonthAgo n = do
   today <- getToday
   let (year, day) = toOrdinalDate today
-      nMonthAgo = day - n*30 
-  if nMonthAgo > 0
-    then return $ fromOrdinalDate year nMonthAgo
-    else if (year - 1) `mod` 4 == 0
-          then return $ fromOrdinalDate (year - 1) (366 + nMonthAgo)
-          else return $ fromOrdinalDate (year - 1) (365 + nMonthAgo)
-
+      nMonthAgo = day - n*30
+   in loop year nMonthAgo 
+  where
+    loop year ago 
+     | ago >= 0 = return $ fromOrdinalDate year ago
+     | otherwise = do
+       let days = if (year - 1) `mod` 4 == 0 then 366 else 365
+         in loop (year - 1) (days + ago)
 
 utcToLocal :: UTCTime -> IO LocalTime 
 utcToLocal = fmap zonedTimeToLocalTime . utcToLocalZonedTime
