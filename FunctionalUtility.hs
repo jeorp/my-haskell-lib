@@ -1,3 +1,4 @@
  
 zip_ :: [a] -> (a -> b) -> [(a, b)]
-zip_ la f = zip la (map f la)
+zip_ (a : xs) f = (a, f a) : zip_ xs f
+zip_ [] _ = []
