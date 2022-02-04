@@ -1,6 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
 
-module DonwloadContent where
 import Network.HTTP.Simple
 import qualified Data.ByteString as B
 import qualified Data.ByteString.Char8 as BS

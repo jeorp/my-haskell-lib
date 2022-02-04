@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
-module Time where 
+
 import qualified Data.Text as T
 import Data.Time.Calendar
 import Data.Time.Clock
