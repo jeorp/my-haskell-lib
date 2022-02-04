@@ -1,9 +1,9 @@
 
 import Control.Monad (when, unless)
 
-zip_ :: [a] -> (a -> b) -> [(a, b)]
-zip_ (a : xs) f = (a, f a) : zip_ xs f
-zip_ [] _ = []
+zipSecond :: [a] -> (a -> b) -> [(a, b)]
+zipSecond (a : xs) f = (a, f a) : zipSecond xs f
+zipSecond [] _ = []
 
 whenM :: Monad m => m Bool -> m () -> m ()
 whenM mb action = mb >>= flip when action
