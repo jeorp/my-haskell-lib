@@ -29,7 +29,7 @@ downloadContent url path = do
           hPutStr fin (BS.unpack bs)
           hClose fin
           putStrLn $ "status : Success download to " ++ path
-        else putStrLn "not video file"
+        else putStrLn "not content file"
 
 
 urlToFileName :: String -> String
