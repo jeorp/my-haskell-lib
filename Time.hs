@@ -13,18 +13,26 @@ dayToString = filter (/= '-') . show
 getToday :: IO Day
 getToday = getCurrentTime >>= fmap localDay . utcToLocal
 
-getNmonthAgo :: Int -> IO Day
-getNmonthAgo n = do
+getNdaysAgo :: Int -> IO Day
+getNdaysAgo n = do
   today <- getToday
   let (year, day) = toOrdinalDate today
-      nMonthAgo = day - n*30
+      nMonthAgo = day - n
    in loop year nMonthAgo 
   where
+    daysOfYear year = if year `mod` 4 == 0 then 366 else 365
     loop year ago 
-     | ago >= 0 = return $ fromOrdinalDate year ago
-     | otherwise = do
-       let days = if (year - 1) `mod` 4 == 0 then 366 else 365
+     | ago >= 0 = 
+       let days = daysOfYear year
+       in if ago > days
+            then loop (year + 1) (ago - days) -- be able to input negate, ex getNdaysAgo (negate 365) == a year latter from today ! 
+            else return $ fromOrdinalDate year ago
+     | otherwise = 
+       let days = daysOfYear (year - 1)
          in loop (year - 1) (days + ago)
+
+getAboutNmonthAgo :: Int -> IO Day
+getAboutNmonthAgo = getNdaysAgo . (*30)
 
 utcToLocal :: UTCTime -> IO LocalTime 
 utcToLocal = fmap zonedTimeToLocalTime . utcToLocalZonedTime
