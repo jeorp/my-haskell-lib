@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 import Network.HTTP.Simple
-import qualified Data.ByteString as B
+import qualified Data.ByteString as BS
 import qualified Data.ByteString.Char8 as BS
 import Control.Monad
 import System.IO
@@ -20,11 +20,11 @@ downloadContent url path = do
         contentType = if not (null xs) then head xs else ""
     store path file contentType
   where
-    store :: FilePath -> B.ByteString -> B.ByteString -> IO ()
+    store :: FilePath -> BS.ByteString -> BS.ByteString -> IO ()
     store path bs c = do
-      if B.isInfixOf "video/" c || B.isInfixOf "image/" c
+      if BS.isInfixOf "video/" c || BS.isInfixOf "image/" c
         then do 
-          let picType = BS.unpack $ snd $ B.splitAt (B.length "image/") c
+          let picType = BS.unpack $ snd $ BS.splitAt (BS.length "image/") c
           fin <- openBinaryFile path WriteMode
           hPutStr fin (BS.unpack bs)
           hClose fin
