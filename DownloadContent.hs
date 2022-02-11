@@ -1,7 +1,6 @@
 {-# LANGUAGE OverloadedStrings #-}
 
 import Network.HTTP.Simple
-import qualified Data.ByteString as BS
 import qualified Data.ByteString.Char8 as BS
 import Control.Monad
 import System.IO

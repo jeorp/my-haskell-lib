@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}  
-module Download where
+module DownloadHtml where
 
 import qualified Data.Text as T
 import qualified Data.Text.Encoding as T
