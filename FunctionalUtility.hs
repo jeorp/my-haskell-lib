@@ -13,6 +13,10 @@ zipSecond :: [a] -> (a -> b) -> [(a, b)]
 zipSecond (a : xs) f = (a, f a) : zipSecond xs f
 zipSecond [] _ = []
 
+safeTail :: [a] -> Maybe a
+safeTail (a: as) = Just a
+safeTail [] = Nothing 
+
 whenM :: Monad m => m Bool -> m () -> m ()
 whenM mb action = mb >>= flip when action
 
