@@ -23,6 +23,10 @@ whenM mb action = mb >>= flip when action
 unlessM :: Monad m => m Bool -> m () -> m ()
 unlessM mb action = mb >>= flip unless action
 
+ifM :: Monad m => m Bool -> (m a, m a) -> m a
+ifM mb action = mb >>= \b -> if b then fst action else snd action  
+
+
 or_implyl :: [a] -> (a -> a -> Bool) -> (a -> Bool)
 or_implyl xs f = \a -> or $ f a <$> xs 
 
