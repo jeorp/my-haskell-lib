@@ -17,8 +17,8 @@ getNdaysAgo :: Int -> IO Day
 getNdaysAgo n = do
   today <- getToday
   let (year, day) = toOrdinalDate today
-      nMonthAgo = day - n
-   in loop year nMonthAgo 
+      nDaysAgo = day - n
+   in loop year nDaysAgo 
   where
     daysOfYear year = if year `mod` 4 == 0 then 366 else 365
     loop year ago 
